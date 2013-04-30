@@ -399,7 +399,7 @@ Heli.Audio = function(game) {
         "resume"       : resume
     };
 };
-
+heliKeyDown = 0;
 var HELICOPTER = (function() {
 
     /* Generate Constants from Heli.Consts arrays */
@@ -425,6 +425,7 @@ var HELICOPTER = (function() {
     function keyDown(e) {
 
         if(e.keyCode === KEY.ENTER) {
+            console.log("Down!");
             audio.play("start");
             thrustersOn = true;
         }
@@ -443,13 +444,17 @@ var HELICOPTER = (function() {
             timer = window.setInterval(mainLoop, 1000/Heli.FPS);
         }
     }
+    heliKeyDown = keyDown;
 
     function keyUp(e) {
         if(e.keyCode === KEY.ENTER) {
+            console.log("Up!");
             audio.stop("start");
             thrustersOn = false;
         }
+
     }
+    heliKeyUp = keyUp;
 
     function mouseDown(e) {
         audio.play("start");
@@ -614,24 +619,24 @@ var HELICOPTER = (function() {
         ctx.fillStyle = Heli.Color.HOME_TEXT;
         ctx.font = "58px silkscreenbold";
 
-        var text = "helicopter";
+        var text = "yellicopter";
         var textWidth = ctx.measureText(text).width,
         x = (screen.width() - textWidth) / 2,
         y = screen.height() / 3;
 
         ctx.fillText(text, x, y);
 
-        var t  = "Click and hold enter key of Mouse Button";
-        var t1 = "to go up, release to go down.";
+        var t  = "Click and hold enter key or make noise";
+        var t1 = "to go up, release or stop yelling to go down.";
 
         ctx.font = "12px silkscreen";
 
         ctx.fillText(t, x + 5, y + 20);
         ctx.fillText(t1, x + 5, y + 33);
 
-        ctx.fillText("press enter or click mouse to start", x + 5, y + 66);
+        ctx.fillText("press enter or click mouse to start...or just YELL!", x + 5, y + 66);
         ctx.fillText("by dale harvey / arandomurl.com", x + 5, y + 145);
-    }
+        ctx.fillText("made loud by ross kinsman", x + 5, y + 195);}
 
 
     function loaded() {
